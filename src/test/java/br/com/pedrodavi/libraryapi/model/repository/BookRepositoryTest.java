@@ -25,7 +25,7 @@ class BookRepositoryTest {
     @Autowired
     BookRepository repository;
 
-    private Book createNewBook(String isbn) {
+    public static Book createNewBook(String isbn) {
         return Book.builder().title("Livro API DB Test").author("Pedro").isbn(isbn).build();
     }
 
