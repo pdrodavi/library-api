@@ -6,6 +6,8 @@ import br.com.pedrodavi.libraryapi.model.repository.BookRepository;
 import br.com.pedrodavi.libraryapi.service.BookService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -21,6 +23,21 @@ public class BookServiceImpl implements BookService {
             throw new BusinessException("ISBN já cadastrado.");
         }
         return repository.save(book);
+    }
+
+    @Override
+    public Optional<Book> getById(Long id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void delete(Book book) {
+
+    }
+
+    @Override
+    public Book update(Book book) {
+        return null;
     }
 
 }
