@@ -4,6 +4,10 @@ import br.com.pedrodavi.libraryapi.exception.BusinessException;
 import br.com.pedrodavi.libraryapi.model.entity.Book;
 import br.com.pedrodavi.libraryapi.model.repository.BookRepository;
 import br.com.pedrodavi.libraryapi.service.BookService;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,17 +31,33 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> getById(Long id) {
-        return Optional.empty();
+        return this.repository.findById(id);
     }
 
     @Override
     public void delete(Book book) {
-
+        if(book.getId() != null && book.getId() >= 0){
+            this.repository.delete(book);
+        } else {
+            throw new IllegalArgumentException("Book id cant be null or < 0.");
+        }
     }
 
     @Override
     public Book update(Book book) {
-        return null;
+        if(book.getId() != null && book.getId() >= 0){
+            return this.repository.save(book);
+        } else {
+            throw new IllegalArgumentException("Book id cant be null or < 0.");
+        }
+    }
+
+    @Override
+    public Page<Book> find(Book filter, Pageable pageRequest) {
+        Example<Book> example = Example.of(filter, ExampleMatcher
+                .matching().withIgnoreCase().withIgnoreNullValues()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING));
+        return repository.findAll(example, pageRequest);
     }
 
 }
