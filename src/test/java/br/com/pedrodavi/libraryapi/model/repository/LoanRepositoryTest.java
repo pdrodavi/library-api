@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static br.com.pedrodavi.libraryapi.model.repository.BookRepositoryTest.createNewBook;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,6 +60,30 @@ class LoanRepositoryTest {
         assertThat(result.getPageable().getPageNumber()).isZero();
         assertThat(result.getTotalElements()).isEqualTo(1);
         assertThat(result.getContent()).contains(loan);
+    }
+
+    @Test
+    @DisplayName("Deve buscar empréstimos em débito, não retornados, atrasados")
+    void findByLoanDateLessThanAndNotReturned(){
+        Loan loan = createAndPersistLoan(LocalDate.now().minusDays(5));
+        List<Loan> result = repository.findByLoanDateLessThanAndNotReturned(LocalDate.now().minusDays(4));
+        assertThat(result).hasSize(1).contains(loan);
+    }
+
+    @Test
+    @DisplayName("Deve retornar nenhum empréstimo atrasado")
+    void notFindByLoanDateLessThanAndNotReturned(){
+        Loan loan = createAndPersistLoan(LocalDate.now());
+        List<Loan> result = repository.findByLoanDateLessThanAndNotReturned(LocalDate.now().minusDays(4));
+        assertThat(result).isEmpty();
+    }
+
+    public Loan createAndPersistLoan(LocalDate loanDate){
+        Book book = createNewBook("001");
+        entityManager.persist(book);
+        Loan loan = Loan.builder().book(book).customer("Pedro").loanDate(loanDate).build();
+        entityManager.persist(loan);
+        return loan;
     }
 
 

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,12 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Page<Loan> getLoansByBook(Book book, Pageable pageable) {
         return repository.findByBook(book, pageable);
+    }
+
+    @Override
+    public List<Loan> getAllLateLoans() {
+        final Integer loanDays = 4; // prazo pra entrega do livro
+        LocalDate threeDaysAgo = LocalDate.now().minusDays(loanDays); // 3 dias atrás
+        return repository.findByLoanDateLessThanAndNotReturned(threeDaysAgo);
     }
 }
