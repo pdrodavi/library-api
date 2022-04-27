@@ -12,6 +12,7 @@
 	<artifactId>library-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>library-api</name>
+	<packaging>war</packaging>
 	<description>API para Operações com Livros de Biblioteca</description>
 
 	<properties>
