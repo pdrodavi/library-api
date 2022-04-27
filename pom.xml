@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.pedrodavi</groupId>
-	<artifactId>library-api</artifactId>
+	<artifactId>libraryapi</artifactId>
 	<version>1.0</version>
-	<name>library-api</name>
+	<name>libraryapi</name>
 	<description>API para Operações com Livros de Biblioteca</description>
 	<packaging>war</packaging>
 
