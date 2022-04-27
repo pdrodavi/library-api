@@ -16,7 +16,6 @@
 	<description>API para Operações com Livros de Biblioteca</description>
 
 	<properties>
-		<java.version>15</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
