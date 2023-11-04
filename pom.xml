@@ -10,14 +10,15 @@
 	</parent>
 	<groupId>br.com.pedrodavi</groupId>
 	<artifactId>libraryapi</artifactId>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<name>libraryapi</name>
 	<description>API para Operações com Livros de Biblioteca</description>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<properties>
+		<java.version>11</java.version>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
